@@ -1,3 +1,18 @@
+# Auto-install plotly if not available
+import subprocess
+import sys
+
+def install_and_import(package):
+    try:
+        __import__(package)
+    except ImportError:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        __import__(package)
+
+# Install required packages
+install_and_import('plotly')
+
+# Now import everything normally
 import streamlit as st
 import pandas as pd
 import plotly.express as px
